@@ -1,0 +1,186 @@
+/* .profile-page{
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    padding: 1rem;
+    box-shadow: 0 0 8px white;
+}
+
+.user-image{
+    border-radius: 50%;
+    padding: 1px;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 9rem;
+    width: 9rem;
+}*/
+
+.upload-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+/*#uploadedImage{
+    border-radius: 50%;
+    background-color: blue;
+    padding: 1px;
+    margin: 1rem;
+    height: 10rem;
+    width: 10rem; 
+}  
+
+#imageUpload{
+    margin: 0 auto;
+}
+.info{
+    margin-top: 2rem;
+    text-align: left;
+}
+
+.info p{
+    margin-top: 1rem;
+    box-shadow: 0 0 5px white;
+    border-radius: 10px;
+    padding: 0.2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.info p input{
+    padding: 0.2rem;
+    font-size: 0.8rem;
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: rgba(191, 190, 190 0.8);
+    margin-left: 0.5rem;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.button{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+.button input{
+    padding: 0.5rem;
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+} */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+  }
+
+  .profile-card {
+    width: 400px;
+    /*background-color: #f9f9f9;*/
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .profile-page {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .profile-page h2 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  .user-details {
+    margin-top: 20px;
+  }
+
+  /* Styling the image preview and file upload input */
+  .upload-container {
+    margin-bottom: 20px;
+  }
+
+  .image-preview {
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #4CAF50;
+  }
+
+  .image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .upload-container input[type="file"] {
+    margin-top: 10px;
+  }
+  
+
+  /* Styling the user info inputs */
+  .info p {
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+
+  .info p strong {
+    display: inline-block;
+    width: 130px;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  .info input[type="text"],
+  .info input[type="tel"],
+  .info input[type="date"],
+  .info input[type="number"] {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  .info span {
+    font-size: 16px;
+    color: #333;
+  }
+
+  /* Styling the buttons */
+  .button {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .button input[type="button"],
+  .button input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin:4px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .button input[type="button"]:hover,
+  .button input[type="submit"]:hover {
+    background-color: #45a049;
+  }

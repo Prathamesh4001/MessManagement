@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mess Website</title>
+    <link rel="stylesheet" href="mess.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.7/css/dataTables.dataTables.css" />
+
+    
+  <style>
+    /* Change the header background color and text color */
+    table#history-table thead {
+    background-color: #4CAF50;
+    color: white;
+    text-align: left;
+  }
+
+  /* Customize the table rows */
+  table#history-table tbody tr {
+    background-color: #f9f9f9;
+    color: #333;
+  }
+
+  /* Add zebra-striping for alternating rows */
+  table#history-table tbody tr:nth-child(even) {
+    background-color: #e0e0e0;
+  }
+
+  /* Style the table borders */
+  table#history-table, table#history-table th, table#history-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  /* Style the total row */
+  table#history-table tfoot {
+    background-color: #f1f1f1;
+    font-weight: bold;
+  }
+
+  /* Hover effect on rows */
+  table#history-table tbody tr:hover {
+    background-color: #ddd;
+  }
+
+  /* Add some padding to the table cells */
+  table#history-table th, table#history-table td {
+    padding: 12px 15px;
+  }
+
+  /* Style the total row font */
+  table#history-table tfoot tr td {
+    font-size: 16px;
+  }
+
+  /* Add a border-collapse property */
+  table#history-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  /* Style pagination controls */
+  .dataTables_paginate .paginate_button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;
+  }
+
+  /* Style pagination active button */
+  .dataTables_paginate .paginate_button.current {
+    background-color: #009688;
+    color: white;
+  }
+
+  /* Customize search input box */
+  .dataTables_filter input {
+    border: 2px solid #4CAF50;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+  /* Customize the info section */
+  .dataTables_info {
+    font-weight: bold;
+  }
+  
+*{
+  margin:0;
+  padding:0;
+}
+*{
+  box-sizing: border-box;
+}
+div{
+  box-shadow:2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  background-color: rgb(162, 101, 101);
+  margin: 0;
+  font-family: Urbanist;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+a{
+  text-decoration: none;
+}
+table{
+  text-align: center;
+}
+
+#history-table{
+  text-align: center;
+}
+th,td{
+  padding: 0.2rem;
+}
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #2e2e38;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3c3c4e;
+}
+
+.card{
+  width:400px;
+  background:
+    linear-gradient(
+      45deg, 
+      #F5E8C7, 
+      #EED19C 100% 
+    );
+  color: black;
+  position: relative;
+  margin: 5px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+}
+.logo-container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;;
+}
+.logo{
+  height: 110px;
+  width: 110px;
+  border-radius: 50%;
+}
+.brand-name{
+  text-align: center;
+}
+.brand-name h2{
+  font-weight: 600;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  font-size: 22px;
+  margin: 0 auto;
+}
+.brand-name p{
+  margin: 6px;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  font-size: 12px;
+}
+
+.contact{
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  /*gap: 4rem;*/ 
+  margin: 20px;
+  background-color: #fff; 
+  padding: 20px;
+  border-radius: 15px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: black;
+}
+.linbtn{
+  background-color: #333; 
+  padding: 15px;
+  border-radius: 50%; 
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+.icon-text{
+  font-size: 12px;
+}
+
+.fa-solid.fa-right-to-bracket:hover,
+.fa-solid.fa-clock-rotate-left:hover,
+.fa-solid.fa-xmark:hover,
+.fa-solid.fa-user:hover
+{
+  transform: scale(1.5);
+}
+
+#login{
+  display: none;
+}
+.login-status{
+  
+  text-align: center;
+}
+#hisdiv{
+  display: none;
+}
+#candiv{
+  display: none;
+}
+#profdiv{
+  display: none;
+}
+.cancle-container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+/* login dialog Styles */
+.modal {
+  /*display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+
+
+/*Mess Image*/
+.print-img-container {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  
+}
+.print-img {
+  width: 90%; 
+  height: auto; 
+  margin-left: 20px;
+  margin-right: 20px ;
+  border-radius: 15px;
+  display:block;
+}
+.card-heading{
+  padding:10px;
+  background-color: white;
+}
+.product-div{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.product-container{
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  font-family:Montserrat;
+  background-color: rgb(218, 244, 244);
+  width: 90%;
+  margin: 5px;
+  margin-top: 20px;
+  padding: 10px;
+}
+.product-container img{
+  flex: 1 1 150px; 
+  max-width: 300px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+.offer-div{
+  display:grid;
+  grid-template-columns: 50% 50%;
+  text-align: center;
+}
+.offer-container{
+  width: 150px;
+  display: inline-block;
+  margin: 6px auto;
+  vertical-align: text-top;
+  border-radius: 4px;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px 0px #00000030;
+  border: 2px solid #FF9800;
+}
+.offer-container img{
+  width: 100%;
+  height: 100px;
+}
+.offer-container h2{
+  padding: 9px 0px 3px;
+  margin: 0px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 500;
+}
+.offer-container h4{
+  padding: 0px 0px 7px;
+  margin: 0px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 500;
+  color: #4CAF50;
+}
+.offer-container p{
+  padding: 2px;
+  margin: 0px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+  color: gray;
+}
+.Enquiry-btn{
+  background: #b018b8f7;
+  color: white;
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 12px;
+  width: fit-content;
+  margin: 0 auto 10px;
+  border-radius: 3px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.video-container{
+  margin: 5px;
+  margin-top: 20px;
+  
+}
+.login-dialog {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: 20px;
+  margin-bottom: 2rem;
+}
+
+.login-dialog input[type="text"],
+.login-dialog input[type="tel"],
+.login-dialog input[type="password"],
+.login-dialog textarea {
+  width: -webkit-fill-available;
+  font-size: 14px;
+  border-radius: 0px;
+  padding: 10px;
+  border: 1px solid #bb401a00;
+  border-bottom: 2px solid #ff5722;
+  margin: 4px 26px;
+  resize: vertical;
+  background: #5e5c5c05;
+}
+
+.login-dialog input::placeholder,
+.login-dialog textarea::placeholder {
+  color: #999;
+}
+
+.login-dialog button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+.login-dialog button:hover {
+  background-color: #218838;
+}
+#about-card{
+  margin: 10px;
+  margin-bottom: 5rem;
+}
+
+.content {
+  background-color: rgb(204, 204, 226);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.content h4 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.content p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.content ul {
+  list-style-type: none;
+  padding: 0;
+  font-size: 18px;
+}
+
+.content ul li {
+  margin-bottom: 5px;
+  line-height: 1.5; 
+}
+
+.highlight {
+  font-weight: bold;
+  color: #e74c3c;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #655555;
+  padding: 10px 0;
+  color: white;
+  z-index: 1000; 
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.navbar a {
+  color: white;
+  font-size: 18px;
+  margin: 0px 14px 0px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color:black; 
+}
+
+.navbar i {
+  margin-bottom: 5px;
+  font-size: 22px;
+}
+
+
+
+
+</style>
+
+</head>
+<body>
+  <div class="card" id="home">
+    <div class="logo-container">
+      <img class="logo" src="images/mess-images/logo.png">
+    </div>
+    <div class="brand-name">
+      <h2 id="brandnm"></h2>
+      <p id="owner"></p>
+      <p id="position"></p>
+    </div>
+    <div class="login-status">
+      <p id="lgn-status-para"></p>
+    </div>
+    <div class="contact" id="contact">
+      <!--<div class="linkbtn" id="showbtn">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <p class="icon-text">Login</p>
+      </div>-->
+      <div class="linkbtn" id="hisbtn">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <p class="icon-text">History</p>
+      </div>
+      <div class="linkbtn" id="canbtn">
+        <i class="fa-solid fa-xmark"></i>
+        <p class="icon-text">Cancle</p>
+      </div>
+      <div class="linkbtn" id="profbtn">
+        <i class="fa-solid fa-user"></i>
+        <p class="icon-text">Profile</p>
+      </div>
+    </div> 
+
+    <div id="login" class="modal">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Login</h2>
+          <label for="phone">Phone Number:</label>
+          <input type="text" id="phone" placeholder="Enter Phone Number">
+          <label for="otp">OTP:</label>
+          <input type="text" id="otp" placeholder="Enter OTP">
+          <button id="lgnbtn">Login</button>
+      </div>
+    </div>
+
+
+    <script>
+    </script> 
+  
+    
+    <div id="hisdiv">
+      <script>
+        var historyData = [
+            {"date":"2024-09-01" ,"lunch":0,"dinner":0},
+            {"date":"2024-09-02" ,"lunch":2,"dinner":0},
+            {"date":"2024-09-03" ,"lunch":0,"dinner":2},
+            {"date":"2024-09-04" ,"lunch":2,"dinner":2},
+            {"date":"2024-09-05" ,"lunch":0,"dinner":0},
+            {"date":"2024-09-01" ,"lunch":0,"dinner":0},
+            {"date":"2024-09-02" ,"lunch":2,"dinner":0},
+            {"date":"2024-09-03" ,"lunch":0,"dinner":2},
+            {"date":"2024-09-04" ,"lunch":2,"dinner":2},
+            {"date":"2024-09-05" ,"lunch":0,"dinner":0},
+            {"date":"2024-09-01" ,"lunch":0,"dinner":0},
+            {"date":"2024-09-02" ,"lunch":2,"dinner":0},
+            {"date":"2024-09-03" ,"lunch":0,"dinner":2},
+            {"date":"2024-09-04" ,"lunch":2,"dinner":2},
+            {"date":"2024-09-05" ,"lunch":0,"dinner":0},
+            {"date":"2024-09-01" ,"lunch":0,"dinner":0},
+            {"date":"2024-09-02" ,"lunch":2,"dinner":0},
+            {"date":"2024-09-03" ,"lunch":0,"dinner":2},
+            {"date":"2024-09-04" ,"lunch":2,"dinner":2},
+            {"date":"2024-09-05" ,"lunch":0,"dinner":0}
+        ]
+      </script>
+
+      <h2>History</h2>
+      <table id="history-table">
+          <thead>
+              <tr>
+                  <th>Date </th>
+                  <th>Lunch</th>
+                  <th>Dinner</th>
+              </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+          <tfoot>
+              <tr>
+                  <td>Total</td>
+                  <td id="totalLunch"></td>
+                  <td id="totalDinner"></td>
+              </tr>
+          </tfoot>
+      </table>
+      
+      <script>
+          function populateData(data){
+            let totalLuch=0;
+            let totalDinner=0;
+            const tableBody = document.querySelector("#history-table tbody");
+
+            data.forEach(item => {
+                const row = document.createElement("tr");
+
+                const dateCell = document.createElement("td");
+                dateCell.textContent = item.date;
+
+                const lunchCell = document.createElement("td");
+                lunchCell.textContent = item.lunch === 0 ? 'P' : 'A';  
+
+                const dinnerCell = document.createElement("td");
+                dinnerCell.textContent = item.dinner === 0 ? 'P' : 'A';  
+
+                row.appendChild(dateCell);
+                row.appendChild(lunchCell);
+                row.appendChild(dinnerCell);
+
+                tableBody.appendChild(row);
+
+                if(item.lunch === 2) totalLuch++; 
+                if(item.dinner === 2) totalDinner++;  
+            });
+
+            document.getElementById("totalLunch").textContent = totalLuch;
+            document.getElementById("totalDinner").textContent = totalDinner;
+        }
+
+        populateData(historyData);
+
+      </script>
+
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+      <script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
+      <script>
+        $(document).ready( function () {
+          $('#history-table').DataTable();
+        } );
+      </script>
+    </div>
+
+    <div class="cancle-container">
+      <div class="candiv" id="candiv">
+          <div class="container">
+              <h2>Cancle Your Meal</h2>
+              <div class="can-info">
+                <p id="can-st-dt"></p>
+                <p id="can-name"></p>
+              </div>
+              <div class="cancel-box">
+                  <p><strong>Select Date : </strong><input id="dt" type="date" name="date"></p>
+                  <p id="nis"></p>
+                  <div id="nis-div">
+                    <div class="time">
+                      <div class="lunch">
+                        <input type="checkbox" name="lunch" id="lunch"><p id="ltext">Lunch</p>
+                      </div>
+                      <div class="dinner">
+                        <input type="checkbox" name="dinner" id="dinner"><p id="dtext">Dinner</p>
+                      </div>
+                    </div>
+                    <input id="cansub" type="submit">
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    
+    <div class="profile-container" id="profdiv">
+      <script>
+        var abc={
+            "pl":"https://images.pexels.com/photos/1188083/pexels-photo-1188083.png?cs=srgb&dl=sea-dawn-nature-1188083.jpg&fm=jpg",
+            "sf":"2024-01-01",
+            "nm":"Milkha Singh",
+            "mo":"7218911242",
+            "ad":"Kolhapur",
+            "ta":"500",
+            "pa":"300",
+            "ra":"ta"-"pa",
+            "ls":"5days"
+        }
+      </script>
+      <div class="profile-card">
+        <div class="profile-page">
+          <h2>User Profile</h2>
+          <div class="user-details">
+            <div class="upload-container">
+              <div class="image-preview user-image" id="imagePreview">
+                <img id="uploadedImage" src="" alt="User Image" />
+              </div>
+              <input type="file" id="imageUpload" accept="image/*" />
+            </div>
+    
+            <div class="info">
+              <p><strong>Start From: </strong><input id="startdt" type="date"></p>
+              <p><strong>Name: </strong><input id="uname" type="text" placeholder="Enter Your Name" required></p>
+              <p><strong>Mobile Number: </strong><input id="umob" type="tel" pattern="[0-9]{10}" placeholder="Enter Mobile Number"></p>
+              <p><strong>Address:</strong><input id="uaddr" type="text" placeholder="Enter Your Address" required></p>
+              <p><strong>Mess Fees:</strong><input id="tamt" type="number" placeholder="Total Amount"></p>
+              <p><strong>Paid Amount:</strong><input id="pamt" type="number" placeholder="Paid Amount"></p>
+              <p><strong>Remaining Amount:</strong><input id="ramt" type="number"></p>
+              <p><strong>Leaves Taken:</strong><span id="leaves"></span></p>
+    
+              <div class="button">
+                <input type="button" value="Edit">
+                <input type="submit" id="profsub">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+          document.getElementById("uploadedImage").src =abc.pl;
+          document.getElementById("startdt").value = abc.sf;
+          document.getElementById("uname").value = abc.nm;
+          document.getElementById("umob").value = abc.mo;
+          document.getElementById("uaddr").value = abc.ad;
+          // document.getElementById("tamt").value = abc.ta;
+          document.getElementById("pamt").value = abc.pa;
+          document.getElementById("ramt").innerText = abc.ta-abc.pa;
+          document.getElementById("leaves").innerText = abc.ls;
+      </script>
+  </div>
+
+    <div class="print-img-container">
+      <img class="print-img" src="images/mess-images/mess-img.jpg">
+    </div>       
+  </div>
+  <div class="card" id="product-services">
+    <div class="card-heading">
+      <h2>Our Dishes</h2>
+    </div>
+    <div class="product-div">
+      <div class="product-container">
+        
+        
+        
+        <p class="prod-name" id="p1">Text</p>
+        <img class="prod-img" src="https://i.imgur.com/TcYlZ31.jpeg">
+        <a href="#enquiry">
+          <div class="Enquiry-btn">Enquiry Now</div>
+        </a>
+      </div>
+      <div class="product-container">
+        <p class="prod-name" id="p2">Text</p>
+        <img class="prod-img" src="https://i.imgur.com/NNY0DLT.jpeg">
+        <a href="#enquiry">
+          <div class="Enquiry-btn">Enquiry Now</div>
+        </a>
+      </div>
+      <div class="product-container">
+        <p class="prod-name" id="p3">Text</p>
+        <img class="prod-img" src="https://i.imgur.com/TcYlZ31.jpeg">
+        <a href="#enquiry">
+          <div class="Enquiry-btn">Enquiry Now</div>
+        </a>
+      </div>
+      <div class="product-container">
+        <p class="prod-name" id="p4">Text</p>
+        <img class="prod-img" src="https://i.imgur.com/jPEUJRh.jpeg">
+        <a href="#enquiry">
+          <div class="Enquiry-btn">Enquiry Now</div>
+        </a>
+      </div>
+      
+    </div>
+  </div>
+  <!--<div class="card" id="offers">
+    <div class="card-heading">
+      <h2>Our Offers</h2>
+    </div>
+    <div class="offer-div">
+      <div class="offer-container">
+        <h2>Brochure Printing</h2>
+        <img class="prod-img" src="images\offers\o1">
+        <p><del>3500</del></p>
+        <h4>2500</h4>
+        <a href="#enquiry">
+          <div class="Enquiry-btn">Enquiry Now</div>
+        </a>
+      </div>
+      <div class="offer-container">
+        <p>Text</p>
+        <img class="prod-img" src="images\offers\o2">
+        <p><del>3500</del></p>
+        <h4>2500</h4>
+        <a href="#enquiry">
+          <div class="Enquiry-btn">Enquiry Now</div>
+        </a>
+      </div>
+      <div class="offer-container">
+        <p>Text</p>
+        <img class="prod-img" src="images\offers\o3">
+        <p><del>3500</del></p>
+        <h4>2500</h4>
+        <a href="#enquiry">
+          <div class="Enquiry-btn">Enquiry Now</div>
+        </a>
+      </div>
+      <div class="offer-container">
+        <p>Text</p>
+        <img class="prod-img" src="images\offers\o4">
+        <p><del>3500</del></p>
+        <h4>2500</h4>
+        <a href="#enquiry">
+          <div class="Enquiry-btn">Enquiry Now</div>
+        </a>
+      </div>
+      <div class="offer-container">
+        <p>Text</p>
+        <img class="prod-img" src="images\offers\o5">
+        <p><del>3500</del></p>
+        <h4>2500</h4>
+        <a href="#enquiry">
+          <div class="Enquiry-btn">Enquiry Now</div>
+        </a>
+      </div>
+      <div class="offer-container">
+        <p>Text</p>
+        <img class="prod-img" src="images\offers\o6">
+        <p><del>3500</del></p>
+        <h4>2500</h4>
+        <a href="#enquiry">
+          <div class="Enquiry-btn">Enquiry Now</div>
+        </a>
+      </div>
+      <div class="offer-container">
+        <p>Text</p>
+        <img class="prod-img" src="images\offers\o7">
+        <p><del>3500</del></p>
+        <h4>2500</h4>
+        <a href="#enquiry">
+          <div class="Enquiry-btn">Enquiry Now</div>
+        </a>
+      </div>
+      <div class="offer-container">
+        <p>Text</p>
+        <img class="prod-img" src="images\offers\o8">
+        <p><del>3500</del></p>
+        <h4>2500</h4>
+        <a href="#enquiry">
+          <div class="Enquiry-btn">Enquiry Now</div>
+        </a>
+      </div>
+    </div>  
+  </div>-->
+  <div class="card" id="youtube">
+    <div class="card-heading">
+      <h2>You Tube Videos</h2>
+    </div>
+    <div class="video-container">
+      <iframe width="100%" height="100%" src="https://www.youtube.com/embed/E0ipP68ODPA?si=Qw0zssrhN3a1VcTl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div class="video-container">
+      <iframe width="100%" height="100%" src="https://www.youtube.com/embed/fEy4Q_hr8mc?si=4kR-ft6QOwNn_p7M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div class="video-container">
+      <iframe width="100%" height="100%" src="https://www.youtube.com/embed/E0ipP68ODPA?si=Qw0zssrhN3a1VcTl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div class="video-container">
+      <iframe width="100%" height="100%" src="https://www.youtube.com/embed/fEy4Q_hr8mc?si=4kR-ft6QOwNn_p7M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>       
+  </div>
+  <div class="card" id="enquiry">
+    <div class="card-heading">
+      <h2>Contact Us</h2>
+    </div>
+    
+</div>
+<div class="card" id="about-card">
+  <div class="card-heading">
+    <h2>About Us</h2>
+  </div>
+  <div class="content">
+     <h4>SINCE 2007</h4>
+
+      <p>WELCOME TO BANKAT PRINTERS POINTS PRINTING PRESS</p>
+      <p>WE PROVIDE:</p>
+      <ul>
+          <li>VISITING CARD</li>
+          <li>LABEL</li>
+          <li>FLYERS</li>
+          <li>LETTER HEAD</li>
+          <li>STICKER</li>
+          <li>MAGAZINE</li>
+          <li>RECEIPT/VOUCHER</li>
+          <li>BOX</li>
+          <li>PROSPECT</li>
+          <li>ENVELOPE</li>
+          <li>CATALOG</li>
+          <li>BULK ID CARD</li>
+          <li>QUOTATION BOOK</li>
+          <li>CALENDAR</li>
+          <li>DIGITAL PRINTING</li>
+      </ul>
+      <p class="highlight">* ONE DAY DELIVERY *</p>
+  </div>
+</div>
+  <footer class="navbar">
+    <a href="#home"><i class="fas fa-house"></i> Home</a>
+    <a href="#product-services"><i class="fas fa-briefcase"></i> Services</a>
+    <a href="#offers"><i class="fas fa-cart-shopping"></i> Shop</a>
+    <a href="#about-card"><i class="fas fa-info-circle"></i> About Us</a>
+    <a href="#contact"><i class="fas fa-address-book"></i> Contact</a>
+    <a href="#youtube"><i class="fa-brands fa-youtube"></i> You Tube</a>
+  </footer>
+</body>
+<script src="mess.js"></script>
+<script src="login.js"></script> 
+</html>   
